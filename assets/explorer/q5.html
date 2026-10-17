@@ -1,0 +1,135 @@
+<!-- explorer-questions-1-to-10.html -->
+<div id="nw-e10" style="font-family: Arial, sans-serif; max-width: 700px; margin: 0 auto;">
+
+<style>
+#nw-e10 .qlabel { color:#888; font-size:13px; margin-bottom:10px; }
+#nw-e10 .nw-q { margin-bottom:40px; }
+#nw-e10 .fbrowser-window { border:1px solid #333; border-radius:8px; overflow:hidden; }
+#nw-e10 .fbrowser-titlebar { background:#1e1e1e; padding:8px 12px; display:flex; gap:6px; align-items:center; justify-content:flex-end; }
+#nw-e10 .fdot { width:11px; height:11px; border-radius:50%; display:inline-block; }
+#nw-e10 .fdot.red { background:#ff5f56; }
+#nw-e10 .fdot.yellow { background:#ffbd2e; }
+#nw-e10 .fdot.green { background:#27c93f; }
+#nw-e10 .fbrowser-navbar { background:#232323; padding:7px 10px; display:flex; align-items:center; gap:8px; border-bottom:1px solid #333; }
+#nw-e10 .fbrowser-navbtn { color:#888; font-size:14px; user-select:none; }
+#nw-e10 .fbrowser-navbtn.active { color:#ccc; cursor:pointer; }
+#nw-e10 .fbrowser-addressbar { flex:1; background:#0c0c0c; border:1px solid #333; border-radius:14px; padding:6px 12px; color:#8fcf8f; font-family:"Courier New", monospace; font-size:12.5px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+#nw-e10 .fbrowser-addressbar .scheme { color:#666; }
+#nw-e10 .fbrowser { background:#0c0c0c; padding:10px; font-size:14px; min-height:120px; }
+#nw-e10 .fitem { padding:8px 10px; color:#ccc; cursor:pointer; border-radius:4px; }
+#nw-e10 .fitem:hover { background:#1e1e1e; }
+#nw-e10 .fitem.folder:before { content:"\1F4C1 "; }
+#nw-e10 .fitem.file:before { content:"\1F4C4 "; }
+#nw-e10 .path { color:#888; font-size:12px; margin-bottom:8px; }
+#nw-e10 .filecontent { background:#0c0c0c; border:1px solid #333; border-radius:6px; padding:12px; margin-top:10px; font-family:"Courier New", monospace; font-size:12px; color:#f0f0f0; white-space:pre-wrap; display:none; }
+#nw-e10 .mcq { margin-top:18px; }
+#nw-e10 .mcq p.task { color:#1a1a1a; font-weight:700; font-size:15px; margin:0 0 10px 0; }
+#nw-e10 .mcq label { display:block; color:#333; font-weight:400; font-size:14px; padding:5px 0; cursor:pointer; }
+#nw-e10 .mcq label:hover { color:#000; }
+#nw-e10 .mcq input[type="radio"] { margin-right:8px; }
+#nw-e10 button { background:#2b2b2b; color:#fff; border:none; padding:7px 16px; border-radius:4px; font-size:13px; cursor:pointer; margin-top:10px; }
+#nw-e10 button:hover { background:#000; }
+#nw-e10 .fb { margin-top:8px; font-size:13px; font-weight:600; }
+#nw-e10 .fb.ok { color:#2e7d32; }
+#nw-e10 .fb.bad { color:#c62828; }
+</style>
+
+
+<div class="nw-q" data-id="5">
+<div class="qlabel">File Explorer Question 5 of 10 &mdash; browse the exposed server storage below to find the answer.</div>
+<div class="fbrowser-window">
+  <div class="fbrowser-titlebar"><span class="fdot red"></span><span class="fdot yellow"></span><span class="fdot green"></span></div>
+  <div class="fbrowser-navbar"><span class="fbrowser-navbtn">&#9664;</span><span class="fbrowser-navbtn">&#9654;</span><span class="fbrowser-navbtn active">&#8635;</span><div class="fbrowser-addressbar"><span class="scheme">http://</span><span class="url-text"></span></div></div>
+  <div class="fbrowser"><div class="path">/</div><div class="flist"></div></div>
+</div>
+<div class="filecontent"></div>
+<div class="mcq">
+<p class="task"><b>Browse medirozahospital.com's old backup folder and open the staff notes file. What sensitive information is leaked in this file?</b></p>
+<label><input type="radio" name="q5"> A default admin password that was never changed</label>
+<label><input type="radio" name="q5"> The hospital's opening hours</label>
+<label><input type="radio" name="q5"> A list of doctor names</label>
+<button>Submit Answer</button><div class="fb"></div>
+</div>
+</div>
+
+</div>
+
+<script>
+var eData = {
+  "5": { "domain": "medirozahospital.com", "tree": {
+    "/": { "type": "folder", "items": ["old", "backup", "uploads", "patient"] },
+    "/uploads": { "type": "folder", "items": ["logo.png"] },
+    "/uploads/logo.png": { "type": "file", "content": "[binary image data]" },
+    "/patient": { "type": "folder", "items": ["dashboard.php"] },
+    "/patient/dashboard.php": { "type": "file", "content": "[dashboard page]" },
+    "/old": { "type": "folder", "items": ["old_config.php", "changelog.txt", "backup_2023.zip", "staff_notes.txt"] },
+    "/old/old_config.php": { "type": "file", "content": "<?php // deprecated config, unused ?>" },
+    "/old/changelog.txt": { "type": "file", "content": "v1.2 - fixed appointment form\nv1.1 - added doctor bios" },
+    "/old/backup_2023.zip": { "type": "file", "content": "[binary archive data, cannot preview]" },
+    "/backup": { "type": "folder", "items": ["notes.txt"] },
+    "/old/staff_notes.txt": { "type": "file", "content": "TODO: change default admin password (still admin123)\nStaff wifi: MedirozaGuest / Health2024" },
+    "/backup/notes.txt": { "type": "file", "content": "Reminder: delete this folder before going live." }
+  }},
+};
+
+document.querySelectorAll('#nw-e10 .nw-q').forEach(function(qdiv){
+  var id = qdiv.getAttribute('data-id');
+  var cfg = eData[id];
+  var pathDiv = qdiv.querySelector('.path');
+  var urlText = qdiv.querySelector('.url-text');
+  var list = qdiv.querySelector('.flist');
+  var content = qdiv.querySelector('.filecontent');
+  var btn = qdiv.querySelector('button');
+  var fb = qdiv.querySelector('.fb');
+  var currentPath = '/';
+
+  function updateAddressBar(fullPath, isFile){
+    var clean = fullPath === '/' ? '' : fullPath;
+    urlText.textContent = cfg.domain + clean + (isFile ? '' : '/');
+  }
+
+  function render(){
+    pathDiv.textContent = currentPath;
+    updateAddressBar(currentPath, false);
+    list.innerHTML = '';
+    content.style.display = 'none';
+    if(currentPath !== '/'){
+      var up = document.createElement('div'); up.className = 'fitem folder'; up.textContent = '.. (back)';
+      up.onclick = function(){ currentPath = currentPath.substring(0, currentPath.lastIndexOf('/')) || '/'; render(); };
+      list.appendChild(up);
+    }
+    var node = cfg.tree[currentPath];
+    node.items.forEach(function(name){
+      var full = (currentPath === '/' ? '' : currentPath) + '/' + name;
+      var child = cfg.tree[full];
+      var el = document.createElement('div');
+      el.className = 'fitem ' + (child.type === 'folder' ? 'folder' : 'file');
+      el.textContent = name;
+      el.onclick = function(){
+        if(child.type === 'folder'){
+          currentPath = full; render();
+        } else {
+          content.style.display = 'block';
+          content.textContent = child.content;
+          updateAddressBar(full, true);
+        }
+      };
+      list.appendChild(el);
+    });
+  }
+  render();
+
+  btn.addEventListener('click', function(){
+    var sel = qdiv.querySelector('input[type=radio]:checked');
+    if(!sel){ fb.textContent = 'Please select an answer.'; fb.className='fb bad'; return; }
+    fb.textContent = 'Answer submitted.'; fb.className='fb ok';
+  });
+});
+</script>
+
+
+<style>
+/* Answer choices are rendered once, externally, by the parent exam page.
+   This standalone explorer simulation must only provide the browsing UI. */
+#nw-e10 .qlabel,#nw-e10 .mcq{display:none!important}
+</style>
