@@ -3,7 +3,8 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><link rel="canonical" href="https://networkwalks.com/final-exam/"><title>Cybersecurity Internship - Final Examination</title><style>html,body{margin:0;padding:0;background:#f4f5f7;font-family:Arial,Helvetica,sans-serif}</style></head><body>
 <!-- File: final_exam_embed_v9.html -->
 <!-- CODE18 of WPCODE on https://networkwalks.com/final-exam/ -->
-<!-- CODE18_Final_Exam_v11.txt v11.a - 2026-10-18 -->
+<!-- CODE18_Final_Exam_v11.txt v11.b - 2026-10-18 -->
+<style>#nw-final-exam-v9 .btn:not(.primary):not(.danger):hover,#nw-final-exam-v9 .btn:not(.primary):not(.danger):focus,#nw-final-exam-v9 .btn:not(.primary):not(.danger):active{background:#f3f4f6!important;color:#333!important;border-color:#bcc3cb!important}#nw-final-exam-v9 .btn.primary:hover,#nw-final-exam-v9 .btn.primary:focus{background:#9f0000!important;color:#fff!important;border-color:#9f0000!important}#nw-final-exam-v9 .btn.danger:hover,#nw-final-exam-v9 .btn.danger:focus{background:#fff6f6!important;color:#9d0000!important;border-color:#cc8f8f!important}</style>
 <style>
 
 :root{--red:#C00000;--red2:#9f0000;--text:#1f2328;--muted:#6b7280;--line:#e4e7eb;--bg:#f4f5f7;--card:#fff;--soft:#fafbfc;--shadow:0 10px 30px rgba(15,23,42,.08)}
@@ -87,9 +88,9 @@ function start(){
  if(Number($('cap').value)!==challengeA+challengeB){$('error').textContent='The verification answer is incorrect.';newChallenge();return}
  const email=$('email').value.trim().toLowerCase();
   apiPost('check_email',{email}).then(check=>{
-   if(check.blocked){$('error').textContent=check.reason==='in_progress'?'You already have an active final-exam attempt.':`You have already attempted this exam. Your next attempt is available after ${check.next_attempt_at||'the waiting period'}.`;return null;}
+   if(check.blocked){$('error').textContent=check.reason==='in_progress'?'You already have an active final-exam attempt.':check.reason==='passed'?'You have already passed the final exam. No further attempts are needed.':`You have already attempted this exam. Your next attempt is available after ${check.next_attempt_at||'the waiting period'}.`;return null;}
    if(check.weekly&&check.weekly.blocked){$('error').textContent='You need at least one completed weekly project before starting the final exam.';return null;}
-   if(check.weekly&&check.weekly.warning){$('error').textContent=check.weekly.warning;}
+   if(check.weekly&&check.weekly.warning){if(!confirm(check.weekly.warning+'\n\nPress OK to continue to the exam, or Cancel to go back.'))return null;}
   return apiPost('begin',{full_name:$('fullName').value.trim(),email,whatsapp:$('wa').value.trim(),city:$('city').value.trim(),country:$('country').value.trim(),batch:$('batch').value.trim(),comments:$('comments').value.trim()});
  }).then(begin=>{
   if(!begin)return;
