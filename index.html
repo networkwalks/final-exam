@@ -3,16 +3,18 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><link rel="canonical" href="https://networkwalks.com/final-exam/"><title>Cybersecurity Internship - Final Examination</title><style>html,body{margin:0;padding:0;background:#f4f5f7;font-family:Arial,Helvetica,sans-serif}</style></head><body>
 <!-- File: final_exam_embed_v9.html -->
 <!-- CODE18 of WPCODE on https://networkwalks.com/final-exam/ -->
-<!-- CODE18_Final_Exam_v11.txt v11.d - 2026-10-18 -->
+<!-- CODE18_Final_Exam_v11.txt v11.e - 2026-10-18 -->
 <style>
 #nw-final-exam-v9 .reqnote{margin-top:14px;padding:12px 14px;border-radius:10px;background:#fff5f5;border:1px solid #f0c4c4;border-left:4px solid #C00000;color:#7f1d1d;font-size:13px;line-height:1.55}
 #nw-final-exam-v9 .msgov{display:none;position:fixed;top:0;right:0;bottom:0;left:0;z-index:2147483000;background:rgba(15,23,42,.55);align-items:center;justify-content:center;padding:16px}
-#nw-final-exam-v9 .msgbox{display:none;width:100%;max-width:520px;max-height:90vh;overflow:auto;margin:0;padding:20px 22px;border-radius:14px;border:1px solid;border-left-width:6px;font-size:14px;line-height:1.55;box-shadow:0 24px 60px rgba(0,0,0,.35)}
+#nw-final-exam-v9 .msgbox{position:relative;display:none;width:100%;max-width:520px;max-height:90vh;overflow:auto;margin:0;padding:20px 22px;border-radius:14px;border:1px solid;border-left-width:6px;font-size:14px;line-height:1.55;box-shadow:0 24px 60px rgba(0,0,0,.35)}
 #nw-final-exam-v9 .msgbox.red{background:#fff5f5;border-color:#e0a1a1;color:#7f1d1d}
 #nw-final-exam-v9 .msgbox.green{background:#eefbf1;border-color:#86d19a;color:#14532d}
 #nw-final-exam-v9 .msgbox.amber{background:#fff8e8;border-color:#e8c36a;color:#78350f}
 #nw-final-exam-v9 .msgbox.blue{background:#eef4ff;border-color:#9db9ee;color:#1e3a8a}
-#nw-final-exam-v9 .msgbox .mh{display:flex;align-items:center;gap:10px;font-weight:800;font-size:15px;margin-bottom:6px}
+#nw-final-exam-v9 .msgbox .mh{display:flex;align-items:center;gap:10px;font-weight:800;font-size:15px;margin-bottom:6px;padding-right:32px}
+#nw-final-exam-v9 .msgbox .mx{position:absolute;top:10px;right:12px;width:28px;height:28px;padding:0;border:0;border-radius:50%;background:transparent;color:inherit;font-size:16px;line-height:1;cursor:pointer;opacity:.7}
+#nw-final-exam-v9 .msgbox .mx:hover,#nw-final-exam-v9 .msgbox .mx:focus{background:rgba(0,0,0,.09)!important;color:inherit!important;opacity:1}
 #nw-final-exam-v9 .msgbox .mi{width:24px;height:24px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:14px;font-weight:800;flex:0 0 auto}
 #nw-final-exam-v9 .msgbox.red .mi{background:#C00000}#nw-final-exam-v9 .msgbox.green .mi{background:#16a34a}#nw-final-exam-v9 .msgbox.amber .mi{background:#d97706}#nw-final-exam-v9 .msgbox.blue .mi{background:#2563eb}
 #nw-final-exam-v9 .msgbox .weeks{display:flex;flex-wrap:wrap;gap:8px 20px;margin:10px 0 6px}
@@ -102,7 +104,7 @@ function apiPost(action,data,keepalive=false){
 function newChallenge(){challengeA=Math.floor(Math.random()*9)+1;challengeB=Math.floor(Math.random()*9)+1;$('math').textContent=`What is ${challengeA} + ${challengeB}?`;$('cap').value=''}
 function wkHTML(c){const d=(c&&c.completed_weeks)||[];return '<div class="weeks">'+[1,2,3,4].map(w=>{const ok=d.indexOf(w)>-1;return '<span class="wk '+(ok?'ok':'no')+'"><i>'+(ok?'&#10003;':'&#10005;')+'</i>Week '+w+'</span>'}).join('')+'</div>'}
 let msgOnClose=null;
-function showMsg(kind,icon,title,body,extra,btns,onClose){const b=$('msgBox');msgOnClose=onClose||null;b.className='msgbox '+kind;b.style.display='block';b.innerHTML='<div class="mh"><span class="mi">'+icon+'</span><span>'+esc(title)+'</span></div><div>'+body+'</div>'+(extra||'')+(btns||'<div class="mb"><button type="button" class="btn" id="msgClose">Close</button></div>');$('msgOverlay').style.display='flex';const c=$('msgClose');if(c){c.onclick=closeMsg;c.focus()}}
+function showMsg(kind,icon,title,body,extra,btns,onClose){const b=$('msgBox');msgOnClose=onClose||null;b.className='msgbox '+kind;b.style.display='block';b.innerHTML='<button type="button" class="mx" id="msgX" aria-label="Close">&#10005;</button><div class="mh"><span class="mi">'+icon+'</span><span>'+esc(title)+'</span></div><div>'+body+'</div>'+(extra||'')+(btns||'<div class="mb"><button type="button" class="btn" id="msgClose">Close</button></div>');$('msgOverlay').style.display='flex';$('msgX').onclick=closeMsg;const c=$('msgClose');if(c){c.onclick=closeMsg;c.focus()}}
 function hideMsg(){msgOnClose=null;$('msgOverlay').style.display='none';const b=$('msgBox');b.style.display='none';b.innerHTML=''}
 function closeMsg(){const f=msgOnClose;hideMsg();if(f)f()}
 function localWhen(s){if(!s)return 'the waiting period ends';const d=new Date(String(s).replace(' ','T')+'Z');return isNaN(d.getTime())?String(s)+' (UTC)':d.toLocaleString([], {day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'})}
@@ -120,7 +122,7 @@ function start(){
    return null;
   }
   const w=check.weekly;
-  if(w&&w.blocked){showMsg('red','!','Weekly projects required','You need to complete at least one weekly project before starting the final exam. Your weekly status:',wkHTML(w),'<div class="mnote">Complete your weekly projects, then come back to start the final exam.</div>');return null;}
+  if(w&&w.blocked){showMsg('red','!','Weekly projects required','You need to complete at least one weekly project before starting the final exam. Your weekly status:',wkHTML(w)+'<div class="mnote">Complete your weekly projects, then come back to start the final exam.</div>');return null;}
   if(w&&w.warning){
    return new Promise(resolve=>{
     showMsg('amber','!','Weekly projects incomplete','Some of your weekly projects are missing. You may take the exam, but your certificate may be delayed until all four weeks are complete.',wkHTML(w),'<div class="mb"><button type="button" class="btn primary" id="wkGo">Continue to exam</button><button type="button" class="btn" id="wkBack">Go back</button></div>',()=>resolve(false));
