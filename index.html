@@ -3,10 +3,11 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><link rel="canonical" href="https://networkwalks.com/final-exam/"><title>Cybersecurity Internship - Final Examination</title><style>html,body{margin:0;padding:0;background:#f4f5f7;font-family:Arial,Helvetica,sans-serif}</style></head><body>
 <!-- File: final_exam_embed_v9.html -->
 <!-- CODE18 of WPCODE on https://networkwalks.com/final-exam/ -->
-<!-- CODE18_Final_Exam_v11.txt v11.c - 2026-10-18 -->
+<!-- CODE18_Final_Exam_v11.txt v11.d - 2026-10-18 -->
 <style>
 #nw-final-exam-v9 .reqnote{margin-top:14px;padding:12px 14px;border-radius:10px;background:#fff5f5;border:1px solid #f0c4c4;border-left:4px solid #C00000;color:#7f1d1d;font-size:13px;line-height:1.55}
-#nw-final-exam-v9 .msgbox{display:none;margin:18px 0 0;padding:16px 18px;border-radius:12px;border:1px solid;border-left-width:5px;font-size:14px;line-height:1.55}
+#nw-final-exam-v9 .msgov{display:none;position:fixed;top:0;right:0;bottom:0;left:0;z-index:2147483000;background:rgba(15,23,42,.55);align-items:center;justify-content:center;padding:16px}
+#nw-final-exam-v9 .msgbox{display:none;width:100%;max-width:520px;max-height:90vh;overflow:auto;margin:0;padding:20px 22px;border-radius:14px;border:1px solid;border-left-width:6px;font-size:14px;line-height:1.55;box-shadow:0 24px 60px rgba(0,0,0,.35)}
 #nw-final-exam-v9 .msgbox.red{background:#fff5f5;border-color:#e0a1a1;color:#7f1d1d}
 #nw-final-exam-v9 .msgbox.green{background:#eefbf1;border-color:#86d19a;color:#14532d}
 #nw-final-exam-v9 .msgbox.amber{background:#fff8e8;border-color:#e8c36a;color:#78350f}
@@ -59,7 +60,7 @@ main{max-width:1180px;margin:auto;padding:34px 24px 60px}.start{max-width:860px;
 <label class="field">WhatsApp Number *<input id="wa"></label><label class="field">City *<input id="city"></label><label class="field">Country *<input id="country"></label><label class="field">Batch *<select id="batch"><option value="">Select Batch</option><option>B082</option><option>B083</option><option>B084</option><option>B085</option></select></label>
 <label class="field full">Comments <textarea id="comments"></textarea></label></div>
 <div class="verify"><div class="verify-title">Verification</div><div class="challenge"><span id="math" class="math"></span><span>=</span><input id="cap" inputmode="numeric"><button id="newCap" class="linkbtn" type="button">New challenge</button></div></div>
-<p class="help">This examination contains 20 questions selected from the final exam question pool. You have 45 minutes to complete the examination.</p><button id="startBtn" class="btn primary">Start Examination</button><div id="error" class="error"></div><div id="msgBox" class="msgbox"></div></div></section>
+<p class="help">This examination contains 20 questions selected from the final exam question pool. You have 45 minutes to complete the examination.</p><button id="startBtn" class="btn primary">Start Examination</button><div id="error" class="error"></div></div></section><div id="msgOverlay" class="msgov"><div id="msgBox" class="msgbox"></div></div>
 <section class="exam" id="exam"><div class="exam-card"><div class="exam-top"><div class="exam-row"><div><div class="qnum" id="qnum">Question 1 of 20</div><div class="hint" id="hint">Answer the question and continue.</div></div><button id="guideBtn" class="guide-btn" type="button" style="display:none">Guideline - How to solve this kind of questions</button></div><div class="progress"><div id="prog"></div></div></div><div class="area" id="area"></div><div class="actions"><div class="left-actions"><button id="skip" class="btn">Skip Question</button><button id="endExam" class="btn danger" type="button">End Exam</button></div><div style="display:flex;align-items:center;gap:12px"><div id="fb" class="feedback"></div><button id="submit" class="btn primary">Submit &amp; Continue</button></div></div></div></section>
 <section class="done" id="done"><h2>Exam submitted successfully</h2><p id="doneMsg">Your examination has been submitted successfully. Please check the results portal after 24 hours.</p><p id="doneReason" style="margin-top:10px"></p><p style="margin-top:22px"><a href="https://networkwalks.com/results/" target="_self" rel="noopener" style="display:inline-block;background:#C00000;color:#fff;text-decoration:none;border-radius:8px;padding:11px 18px;font-size:13px;font-weight:700">Check Final Exam Results</a></p></section>
 <div class="guide-modal" id="guideModal" role="dialog" aria-modal="true" aria-labelledby="guideTitle"><div class="guide-card"><div class="guide-head"><h3 id="guideTitle">Guideline</h3><button class="guide-close" id="guideClose" type="button" aria-label="Close">&times;</button></div><div class="guide-body"><ul id="guideList"></ul></div></div></div>
@@ -100,8 +101,10 @@ function apiPost(action,data,keepalive=false){
 }
 function newChallenge(){challengeA=Math.floor(Math.random()*9)+1;challengeB=Math.floor(Math.random()*9)+1;$('math').textContent=`What is ${challengeA} + ${challengeB}?`;$('cap').value=''}
 function wkHTML(c){const d=(c&&c.completed_weeks)||[];return '<div class="weeks">'+[1,2,3,4].map(w=>{const ok=d.indexOf(w)>-1;return '<span class="wk '+(ok?'ok':'no')+'"><i>'+(ok?'&#10003;':'&#10005;')+'</i>Week '+w+'</span>'}).join('')+'</div>'}
-function showMsg(kind,icon,title,body,extra,btns){const b=$('msgBox');b.className='msgbox '+kind;b.style.display='block';b.innerHTML='<div class="mh"><span class="mi">'+icon+'</span><span>'+esc(title)+'</span></div><div>'+body+'</div>'+(extra||'')+(btns||'');b.scrollIntoView({block:'nearest',behavior:'smooth'})}
-function hideMsg(){const b=$('msgBox');b.style.display='none';b.innerHTML=''}
+let msgOnClose=null;
+function showMsg(kind,icon,title,body,extra,btns,onClose){const b=$('msgBox');msgOnClose=onClose||null;b.className='msgbox '+kind;b.style.display='block';b.innerHTML='<div class="mh"><span class="mi">'+icon+'</span><span>'+esc(title)+'</span></div><div>'+body+'</div>'+(extra||'')+(btns||'<div class="mb"><button type="button" class="btn" id="msgClose">Close</button></div>');$('msgOverlay').style.display='flex';const c=$('msgClose');if(c){c.onclick=closeMsg;c.focus()}}
+function hideMsg(){msgOnClose=null;$('msgOverlay').style.display='none';const b=$('msgBox');b.style.display='none';b.innerHTML=''}
+function closeMsg(){const f=msgOnClose;hideMsg();if(f)f()}
 function localWhen(s){if(!s)return 'the waiting period ends';const d=new Date(String(s).replace(' ','T')+'Z');return isNaN(d.getTime())?String(s)+' (UTC)':d.toLocaleString([], {day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'})}
 function beginAttempt(email){return apiPost('begin',{full_name:$('fullName').value.trim(),email,whatsapp:$('wa').value.trim(),city:$('city').value.trim(),country:$('country').value.trim(),batch:$('batch').value.trim(),comments:$('comments').value.trim()})}
 function start(){
@@ -120,7 +123,7 @@ function start(){
   if(w&&w.blocked){showMsg('red','!','Weekly projects required','You need to complete at least one weekly project before starting the final exam. Your weekly status:',wkHTML(w),'<div class="mnote">Complete your weekly projects, then come back to start the final exam.</div>');return null;}
   if(w&&w.warning){
    return new Promise(resolve=>{
-    showMsg('amber','!','Weekly projects incomplete','Some of your weekly projects are missing. You may take the exam, but your certificate may be delayed until all four weeks are complete.',wkHTML(w),'<div class="mb"><button type="button" class="btn primary" id="wkGo">Continue to exam</button><button type="button" class="btn" id="wkBack">Go back</button></div>');
+    showMsg('amber','!','Weekly projects incomplete','Some of your weekly projects are missing. You may take the exam, but your certificate may be delayed until all four weeks are complete.',wkHTML(w),'<div class="mb"><button type="button" class="btn primary" id="wkGo">Continue to exam</button><button type="button" class="btn" id="wkBack">Go back</button></div>',()=>resolve(false));
     $('wkGo').onclick=()=>{hideMsg();resolve(true)};$('wkBack').onclick=()=>{hideMsg();resolve(false)};
    }).then(go=>go?beginAttempt(email):null);
   }
@@ -183,7 +186,7 @@ function showDone(reason){$('timerBox').style.display='none';$('exam').style.dis
 function startHeartbeat(){clearInterval(heartbeatId);heartbeatId=setInterval(()=>{if(!attemptToken||ended)return;apiPost('heartbeat',{attempt_token:attemptToken,answered_questions:answeredCount,correct_answers:correctCount,skipped_questions:skippedCount,progress_index:idx},true).then(d=>{syncAttempt(d.attempt);if(secs===0)finish('time')}).catch(()=>{})},30000)}
 function sendExitBeacon(){if(!attemptToken||ended||!navigator.sendBeacon)return;const fd=new FormData();fd.append('action','progress');fd.append('attempt_token',attemptToken);fd.append('answered_questions',answeredCount);fd.append('correct_answers',correctCount);fd.append('skipped_questions',skippedCount);fd.append('score',correctCount);fd.append('progress_index',idx);navigator.sendBeacon(NW_FINAL_API,fd)}
 function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-$('newCap').onclick=newChallenge;$('startBtn').onclick=start;$('submit').onclick=submit;$('skip').onclick=skip;$('endExam').onclick=openEndExam;$('endCancel').onclick=closeEnd;$('endClose').onclick=closeEnd;$('guideBtn').onclick=openGuide;$('guideClose').onclick=closeGuide;$('guideModal').addEventListener('click',e=>{if(e.target.id==='guideModal')closeGuide()});$('endModal').addEventListener('click',e=>{if(e.target.id==='endModal')closeEnd()});document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeGuide();closeEnd()}});window.addEventListener('pagehide',sendExitBeacon);newChallenge();
+$('newCap').onclick=newChallenge;$('msgOverlay').onclick=e=>{if(e.target.id==='msgOverlay')closeMsg()};document.addEventListener('keydown',e=>{if(e.key==='Escape'&&$('msgOverlay').style.display==='flex')closeMsg()});$('startBtn').onclick=start;$('submit').onclick=submit;$('skip').onclick=skip;$('endExam').onclick=openEndExam;$('endCancel').onclick=closeEnd;$('endClose').onclick=closeEnd;$('guideBtn').onclick=openGuide;$('guideClose').onclick=closeGuide;$('guideModal').addEventListener('click',e=>{if(e.target.id==='guideModal')closeGuide()});$('endModal').addEventListener('click',e=>{if(e.target.id==='endModal')closeEnd()});document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeGuide();closeEnd()}});window.addEventListener('pagehide',sendExitBeacon);newChallenge();
 </script>
 
 
